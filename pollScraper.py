@@ -12,18 +12,24 @@ soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
 # finds table at index 1 (second table in soup) and assigns it to var called my_table
 my_table = soup.find_all("table")[1]
-print(my_table)
 
 
 # finds and prints all table heads in soup
 global_titles = soup.find_all("th")
-for title in global_titles:
-    print(title.text)
+# for title in global_titles:
+#     print(title.text)
 
 # finds only table head in my_table
 my_table_titles = my_table.find_all("th")
-for title in my_table_titles:
-    print(title.text)
+# for title in my_table_titles:
+#     print(title.text)
+
+# column_data = my_table.find_all('tr')
+
+# for row in column_data:
+#     row_data = row.find_all('td')
+#     individual_row_data = [data.text for data in row_data]
+#     print(individual_row_data)
 
 # example of combining disparate data
 # for quote, author in zip(quotes, authors):
