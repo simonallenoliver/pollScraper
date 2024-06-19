@@ -16,12 +16,13 @@ pollsters = soup.find_all("td", class_="pollster")
 for p in pollsters:
     print(p.text)
 
-# gets all numbers tds (with names and numbers)
+# gets all poll numbers tds (with names and numbers)
 numbers = soup.find_all("td", class_="answers hide-desktop")
 # gets all biden numbers
 for n in numbers:
     biden = n.find_all("div")[2]
     print("Biden", biden.text)
+
 # gets all trump numbers
 for n in numbers:
     trump = n.find_all("div")[4]
