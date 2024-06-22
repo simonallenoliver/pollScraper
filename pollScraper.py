@@ -1,8 +1,15 @@
 from bs4 import BeautifulSoup # import libraries
 import requests
 
-# set up soup
+# -------web scraping basics--------
+# Beautiful Soup helps parse HTML and extract data, 
+# while Selenium handles dynamically loaded content.
+# Always check a website’s robots.txt file to see if 
+# scraping is allowed.
+
+# ---------set up soup--------------
 page_to_scrape = requests.get("https://www.realclearpolling.com/polls/president/general/2024/trump-vs-biden")
+# rcp ended up being much more difficult to work with compared to 538
 soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
 # find will get the first item matching the criteria
