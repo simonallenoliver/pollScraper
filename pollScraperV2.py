@@ -27,3 +27,8 @@ for n in numbers:
 for n in numbers:
     trump = n.find_all("div")[4]
     print("Trump", trump.text)
+
+
+# ---------Goals----------
+# this is good start - eventually we need a way to get the swing state poll numbers as well
+# all this needs to be entered into DB - reload once a day 
