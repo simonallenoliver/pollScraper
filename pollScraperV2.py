@@ -29,6 +29,10 @@ for n in numbers:
     print("Trump", trump.text)
 
 
+
+
+
 # ---------Goals----------
 # this is good start - eventually we need a way to get the swing state poll numbers as well
 # all this needs to be entered into DB - reload once a day 
+# using DB we can create model... some similarities to sand inventory transactions
