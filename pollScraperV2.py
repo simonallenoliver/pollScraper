@@ -1,6 +1,23 @@
 from bs4 import BeautifulSoup # import libraries
 import requests
 
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="root",
+  database="pollscraperdb"
+)
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
+val = (47, 51)
+mycursor.execute(sql, val)
+
+mydb.commit()
+
+
 # set up soup
 page_to_scrape = requests.get("https://projects.fivethirtyeight.com/polls/president-general/2024/national/")
 soup = BeautifulSoup(page_to_scrape.text, "html.parser")
