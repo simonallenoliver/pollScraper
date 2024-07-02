@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup # import libraries
 import requests
+import datetime
 
+# connection to mysql (had to install mysql python connector)
+# connection tested successfully
 import mysql.connector
 mydb = mysql.connector.connect(
   host="localhost",
@@ -11,8 +14,10 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
+now = datetime.datetime.now()
+
 sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
-val = (47, 51)
+val = (49, 51, now, "uGov", now, now)
 mycursor.execute(sql, val)
 
 mydb.commit()
