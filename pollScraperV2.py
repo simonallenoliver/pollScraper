@@ -14,9 +14,11 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
+# create var for current date time - may change to just date?
 now = datetime.datetime.now()
 
 sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
+# these vaues will be our variable from below - this will prob go after the scraping stuff
 val = (49, 51, now, "uGov", now, now)
 mycursor.execute(sql, val)
 
