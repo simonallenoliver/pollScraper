@@ -56,6 +56,7 @@ for n in numbers:
 
 
 
+
 # ---------Goals----------
 # this is good start - eventually we need a way to get the swing state poll numbers as well
 # all this needs to be entered into DB - reload once a day 
