@@ -29,7 +29,7 @@ dates = soup.find_all("td", class_="dates hide-desktop")
 for date in dates:
     line1 = date.find("div") # extra removed (poll type if want to add later we need 2nd div)
     allDates.append(line1.text)
-print(allDates)
+
 
 # grabs pollster names
 allPollsters = []
@@ -53,17 +53,21 @@ allBiden = []
 for n in numbers:
     biden = n.find_all("div")[2]
     allBiden.append(biden.text)
-print(allBiden)
+
 # gets all just trump numbers
 allTrump = []
 for n in numbers:
     trump = n.find_all("div")[4]
     allTrump.append(trump.text)
-print(allTrump)
 
-
-
-
+# this will be a list of lists, maybe we want it to be a dictionary of lists?
+allData = []
+# aggregate all the data
+allData.append(allDates)
+allData.append(allPollsters)
+allData.append(allBiden)
+allData.append(allTrump)
+print("ALL DATA START",allData,"ALL DATA END")
 
 
 # ---------Goals----------
