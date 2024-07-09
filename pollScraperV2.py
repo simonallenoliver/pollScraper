@@ -4,25 +4,19 @@ import datetime
 
 # connection to mysql (had to install mysql python connector)
 # connection tested successfully
-# import mysql.connector
-# mydb = mysql.connector.connect(
-#   host="localhost",
-#   user="root",
-#   password="root",
-#   database="pollscraperdb"
-# )
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="root",
+  database="pollscraperdb"
+)
 
-# mycursor = mydb.cursor()
+mycursor = mydb.cursor()
 
-# # create var for current date time - may change to just date?
-# now = datetime.datetime.now()
+# create var for current date time - may change to just date?
+now = datetime.datetime.now()
 
-# sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
-# # these vaues will be our variable from below - this will prob go after the scraping stuff
-# val = (39, 61, now, "uGov", now, now)
-# mycursor.execute(sql, val)
-
-# mydb.commit()
 
 
 # set up soup
@@ -30,18 +24,27 @@ page_to_scrape = requests.get("https://projects.fivethirtyeight.com/polls/presid
 soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
 # grabs all dates for most recent polls
+allDates = []
 dates = soup.find_all("td", class_="dates hide-desktop")
 for date in dates:
     line1 = date.find("div") # extra removed (poll type if want to add later we need 2nd div)
-    print(line1.text)
+    allDates.append(line1.text)
+print(allDates)
 
 # grabs pollster names
 allPollsters = []
 pollsters = soup.find_all("td", class_="pollster")
 for p in pollsters:
     allPollsters.append(p.text)
-    print(p.text)
 print("allPollsters", allPollsters)
+for p in allPollsters:
+    sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
+    # these vaues will be our variable from below - this will prob go after the scraping stuff
+    val = (39, 61, now, p, now, now)
+    mycursor.execute(sql, val)
+    mydb.commit()
+# -----------------wow ok cool managed to get all the pollsters added to the db in one go
+# need to figure out how to add all the data in one query
 
 # gets all poll numbers tds (with names and numbers)
 numbers = soup.find_all("td", class_="answers hide-desktop")
