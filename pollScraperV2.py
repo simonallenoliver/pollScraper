@@ -36,7 +36,7 @@ allPollsters = []
 pollsters = soup.find_all("td", class_="pollster")
 for p in pollsters:
     allPollsters.append(p.text)
-print("allPollsters", allPollsters)
+
 for p in allPollsters:
     sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
     # these vaues will be our variable from below - this will prob go after the scraping stuff
@@ -70,3 +70,4 @@ print(allTrump)
 # this is good start - eventually we need a way to get the swing state poll numbers as well
 # all this needs to be entered into DB - reload once a day 
 # using DB we can create model... some similarities to sand inventory transactions
+# ...7.9.24... trying to figure out how to get all the data in a single query..
