@@ -28,9 +28,9 @@ my_table = soup.find_all("table")[1]
 #     print(title.text)
 
 # finds only table head in my_table
-# my_table_titles = my_table.find_all("th")
-# for title in my_table_titles:
-    # print(title.text)
+my_table_titles = my_table.find_all("th")
+for title in my_table_titles:
+    print(title.text)
 
 
 

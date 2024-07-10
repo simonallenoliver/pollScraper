@@ -23,51 +23,11 @@ now = datetime.datetime.now()
 page_to_scrape = requests.get("https://projects.fivethirtyeight.com/polls/president-general/2024/national/")
 soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
-# grabs all dates for most recent polls
-allDates = []
-dates = soup.find_all("td", class_="dates hide-desktop")
-for date in dates:
-    line1 = date.find("div") # extra removed (poll type if want to add later we need 2nd div)
-    allDates.append(line1.text)
-
-
-# grabs pollster names
-allPollsters = []
-pollsters = soup.find_all("td", class_="pollster")
-for p in pollsters:
-    allPollsters.append(p.text)
-
-for p in allPollsters:
-    sql = "INSERT INTO polls (bidenPercent, trumpPercent, date, pollster, createdAt, updatedAt) VALUES (%s, %s, %s, %s, %s, %s)"
-    # these vaues will be our variable from below - this will prob go after the scraping stuff
-    val = (39, 61, now, p, now, now)
-    mycursor.execute(sql, val)
-    mydb.commit()
-# -----------------wow ok cool managed to get all the pollsters added to the db in one go
-# need to figure out how to add all the data in one query
-
-# gets all poll numbers tds (with names and numbers)
-numbers = soup.find_all("td", class_="answers hide-desktop")
-# gets all just biden numbers
-allBiden = []
-for n in numbers:
-    biden = n.find_all("div")[2]
-    allBiden.append(biden.text)
-
-# gets all just trump numbers
-allTrump = []
-for n in numbers:
-    trump = n.find_all("div")[4]
-    allTrump.append(trump.text)
-
-# this will be a list of lists, maybe we want it to be a dictionary of lists?
-allData = []
-# aggregate all the data
-allData.append(allDates)
-allData.append(allPollsters)
-allData.append(allBiden)
-allData.append(allTrump)
-print("ALL DATA START",allData,"ALL DATA END")
+myTable = soup.find_all("table")[1]
+tBody = myTable.find_all("tbody")[0]
+for row in tBody.find_all('tr'):
+    for td in row.find_all("td"):
+        print(td)
 
 
 # ---------Goals----------
