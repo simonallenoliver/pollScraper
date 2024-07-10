@@ -24,11 +24,19 @@ page_to_scrape = requests.get("https://projects.fivethirtyeight.com/polls/presid
 soup = BeautifulSoup(page_to_scrape.text, "html.parser")
 
 myTable = soup.find_all("table")[1]
-tBody = myTable.find_all("tbody")[0]
-for row in tBody.find_all('tr'):
-    # mayhaps the sql query goes here.... it will go through each row, and the tds will be the indi data
-    for td in row.find_all("td"):
-        print(td.text)1
+tRows = myTable.find_all("tr")
+for row in tRows:
+    print(row.text)
+
+# --------------7.10.24 uhg why is this not working; both the above and below attempts only produced the first
+# few rows of the table - may be an issue with multiple table bodies? unclear and this is annoying
+
+# for tBody in tBods:
+#     print("t BOD", tBody.text)
+#     tRows = tBody.find_all("tr")
+#     # mayhaps the sql query goes here.... it will go through each row, and the tds will be the indi data
+#     for row in tRows:
+#         print(row.text)
 
 
 # ---------Goals----------
